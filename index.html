@@ -7,7 +7,7 @@
 	
         <script src="https://preview.babylonjs.com/babylon.js"></script>
         <script src="https://preview.babylonjs.com/loaders/babylonjs.loaders.js"></script>
-	<script src="https://preview.babylonjs.com/inspector/babylon.inspector.bundle.js"></script>
+
 	</script>
     <style>
         html, body {
@@ -38,13 +38,11 @@
 	var timer=0;
 	var loadingStatusNeon=0;
 	var loadingStatusTemple=0;
-		var loadingStatusPalms=0;
-	console.log(window.loadingStatusTemple);
-	
-	
-        window.addEventListener('DOMContentLoaded', function(){
-		
+	var loadingStatusPalms=0;
 
+	
+	
+window.addEventListener('DOMContentLoaded', function(){
 document.getElementById('soundBG').play();		
 
             // get the canvas DOM element
@@ -59,7 +57,7 @@ document.getElementById('soundBG').play();
                 var scene = new BABYLON.Scene(engine);
 				
 				
-				scene.debugLayer.show();
+				//scene.debugLayer.show();
 
                 // create a FreeCamera, and set its position to (x:0, y:5, z:-10)
                 var camera = new BABYLON.FreeCamera('camera1', new BABYLON.Vector3(0, -5,-25), scene);
@@ -72,10 +70,6 @@ document.getElementById('soundBG').play();
                 camera.attachControl(canvas, false);
 				
 				
-//////////				
-//camera.inputs.add(new BABYLON.FreeCameraGamepadInput());
-//camera.inputs.attached.gamepad.gamepadAngularSensibility = 250;
-
 
 //fog	
 scene.fogMode = BABYLON.Scene.FOGMODE_EXP;		
@@ -92,7 +86,7 @@ scene.postProcessRenderPipelineManager.attachCamerasToRenderPipeline('lensEffect
 
 
                 // create a basic light, aiming 0,1,0 - meaning, to the sky
-                var light = new BABYLON.HemisphericLight('light1', new BABYLON.Vector3(-0.1,1,0.3), scene);
+var light = new BABYLON.HemisphericLight('light1', new BABYLON.Vector3(-0.1,1,0.3), scene);
 var light2 = new BABYLON.SpotLight("spotLight", new BABYLON.Vector3(0, 45, 10), new BABYLON.Vector3(0.3, -0.71, 0), Math.PI / 3, 2, scene);
 
 
@@ -106,16 +100,16 @@ var light2 = new BABYLON.SpotLight("spotLight", new BABYLON.Vector3(0, 45, 10), 
 
 
     //Creation of a repeated textured material
-  var myMaterial = new BABYLON.StandardMaterial("myMaterial1", scene);
- var myTexture  = new BABYLON.Texture("textures/texture.jpg", scene);
+var myMaterial = new BABYLON.StandardMaterial("myMaterial1", scene);
+var myTexture  = new BABYLON.Texture("textures/texture.jpg", scene);
   
  myMaterial.bumpTexture = new BABYLON.Texture("textures/6.jpg", scene);
  myMaterial.diffuseTexture  = new BABYLON.Texture("textures/texture.jpg", scene); 
  myMaterial.emissiveTexture = new BABYLON.Texture("textures/texture.jpg", scene); 
-  myMaterial.emissiveColor = new BABYLON.Color3.White();
+ myMaterial.emissiveColor = new BABYLON.Color3.White();
  
  
-// myMaterial.diffuseTexture = myTexture ;
+
  
 scene.getMaterialByID("myMaterial1").diffuseTexture.uScale = 4.0;
 scene.getMaterialByID("myMaterial1").diffuseTexture.vScale = 4.0;
@@ -125,12 +119,6 @@ scene.getMaterialByID("myMaterial1").diffuseTexture.vScale = 4.0;
 
 
   
-        // Create a default skybox with an environment.
-		
-        //    var hdrTexture = BABYLON.CubeTexture.CreateFromPrefilteredData("https://www.babylonjs-playground.com/textures/environment.dds", scene);
-       //    var currentSkybox = scene.createDefaultSkybox(hdrTexture, true);
-        
-//BABYLON.SceneLoader.ImportMesh("", "/", "room5.gltf", scene, null);
 
 
 
@@ -151,13 +139,6 @@ scene.getMaterialByID("myMaterial1").diffuseTexture.vScale = 4.0;
 
 
 
-
-
-
-  //myTexture.vAngl=150;
-  //  myTexture.wAngl=150;
-  // myTexture.uAngl=150;
-  
 
   
   
@@ -196,8 +177,7 @@ wall_2.material = myMaterial;
 wall_3.material = myMaterial;
 wall_4.material = myMaterial;
 
-//wall_1.emissiveTexture = myTexture ;
-//wall_1.emissiveColor = new BABYLON.Color3.White();
+
 
 
  
@@ -205,11 +185,6 @@ wall_4.material = myMaterial;
 
 
 
-                // move the sphere upward 1/2 of its height
-               // sphere.position.y=4;
-
-                // create a built-in "ground" shape;
- //               var ground = BABYLON.Mesh.CreateGround('ground1', 6, 6, 2, scene);
 
 
 
@@ -234,12 +209,12 @@ wall_4.material = myMaterial;
             //window.templeScale = 0.010;
 			bench1Scale=0.004;
             bench[0].scaling = new BABYLON.Vector3(bench1Scale, bench1Scale, bench1Scale);
-					//	bench[0].rotation = new BABYLON.Vector3(0, 3, 0);
+
 			
 var axis = new BABYLON.Vector3(1, 1, 1);
 var angle = Math.PI / 8;
 var quaternion = new BABYLON.Quaternion.RotationAxis(axis, angle);
-//bench[0].rotationQuaternion = quaternion;
+
 		
 
 		
@@ -253,39 +228,15 @@ bench[0].rotationQuaternion = quaternion;
 	
 	
     var island2 = bench[0].clone('island2');
-   // island2.position.z += 10;
-    island2.flipFaces(true);	
+
+island2.flipFaces(true);	
 scene.removeMesh(bench[0]);
 bench[0].dispose();
 
 
 
 
-//island2.getChildMeshes(directDescendantsOnly?: boolean, predicate?: function)
-
-//scene.getNodeByName('island2').position.z = 15;
-
-
-
-
-//var dummy = new BABYLON.Mesh("dumm777", scene);
- //   var sphere = BABYLON.MeshBuilder.CreateSphere("dummy", {diameter: 0.01, segments: 16}, scene);
-//sphere.position = new BABYLON.Vector3(6, -4, -14);
-//var meshDummy = BABYLON.Mesh.MergeMeshes([sphere, bench[0]]);
-
-//console.log(meshDummy.name);
-console.log('ummyname');	
-
-	//		var quaternion = new BABYLON.Quaternion.RotationAxis(axis, angle);
-//mesh.rotationQuaternion = quaternion
 			
-			   for(var i = 0; i < bench.length; i++){
-		//    
-            console.log(bench[i].name+'');
-        }
-	//	bench[0].name='temple';	
-		window.loadingStatusTemple=1;
-		 console.log('Temple done');
         });
 
 
@@ -392,31 +343,12 @@ scene.getMeshByID('palm02').position.y = scene.getMeshByID('palm02').position.y+
 if (window.loadingStatusNeon==1)
 {
 scene.getMeshByID('sign1_matSign1_0').position.z = scene.getMeshByID('sign1_matSign1_0').position.z-0.15; 
-//console.log('loaded dd');
-
 }
 
-//		scene.getMeshByName('polySurface1168_lambert1_0').position.z = 216; 
 
-//scene.getMaterialByID("myMaterial1").diffuseTexture.uOffset = scene.getMaterialByID("myMaterial1").diffuseTexture.vOffset+101;
-//scene.getMeshByID('wall1').material.diffuseTexture.uOffset =  scene.getMeshByID('wall1').material.diffuseTexture.uOffset+1
-//scene.getMaterialByID("myMaterial1"); 
+ });
 
-	
-				
-		//		var Zsphere=BABYLON.Mesh.sphere1;
-		//		Zsphere.position.y=Zsphere.position.y-1;
-			//	sphere1.position.y=document.sphere1.position.y-1;
-            });
 
-    document.body.onkeyup = function(e){
-      if(e.keyCode == 32){
-        //your code
-        console.log("jump");
-  //      setTimeout(jump(), 10000); 
-
-      }
-    }
 
 
 
