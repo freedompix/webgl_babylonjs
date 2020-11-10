@@ -7,7 +7,7 @@
 	
         <script src="https://preview.babylonjs.com/babylon.js"></script>
         <script src="https://preview.babylonjs.com/loaders/babylonjs.loaders.js"></script>
-
+	<script src="https://preview.babylonjs.com/inspector/babylon.inspector.bundle.js"></script>
 	</script>
     <style>
         html, body {
@@ -26,11 +26,11 @@
     </style>
 </head>
 <body>
+<!-- MAGICSTREAMS - START EMBEDDED IFRAME HTML5 PLAYER --> 
+<iframe width="1" height="1" src="https://radioplayer.link/iframe/index.php?autoplay=play&name=uj&logo=&bgcolor=212121&textcolor=FFFFFF&v=1&stream=http://ice4.somafm.com/spacestation-128-mp3" frameborder="0" scrolling="no" style="border-radius: 8px;" allow="autoplay;"></iframe> 
+<!-- MAGICSTREAMS - END EMBEDDED IFRAME HTML5 PLAYER -->
 
- <audio id="soundBG" controls autoplay>
-  <source src="http://ice4.somafm.com/deepspaceone-128-mp3”" type="audio/mpeg">
-  Your browser does not support the audio element.
-</audio> 
+
 
 
     <canvas id="renderCanvas"></canvas>
@@ -39,11 +39,13 @@
 	var loadingStatusNeon=0;
 	var loadingStatusTemple=0;
 	var loadingStatusPalms=0;
+	console.log(window.loadingStatusTemple);
+	
+	
+        window.addEventListener('DOMContentLoaded', function(){
+		
 
-	
-	
-window.addEventListener('DOMContentLoaded', function(){
-document.getElementById('soundBG').play();		
+//document.getElementById('soundBG').play();		
 
             // get the canvas DOM element
             var canvas = document.getElementById('renderCanvas');
@@ -57,7 +59,7 @@ document.getElementById('soundBG').play();
                 var scene = new BABYLON.Scene(engine);
 				
 				
-				//scene.debugLayer.show();
+				scene.debugLayer.show();
 
                 // create a FreeCamera, and set its position to (x:0, y:5, z:-10)
                 var camera = new BABYLON.FreeCamera('camera1', new BABYLON.Vector3(0, -5,-25), scene);
@@ -70,6 +72,10 @@ document.getElementById('soundBG').play();
                 camera.attachControl(canvas, false);
 				
 				
+//////////				
+//camera.inputs.add(new BABYLON.FreeCameraGamepadInput());
+//camera.inputs.attached.gamepad.gamepadAngularSensibility = 250;
+
 
 //fog	
 scene.fogMode = BABYLON.Scene.FOGMODE_EXP;		
@@ -85,23 +91,15 @@ scene.postProcessRenderPipelineManager.attachCamerasToRenderPipeline('lensEffect
 
 
 
-                // create a basic light, aiming 0,1,0 - meaning, to the sky
-var light = new BABYLON.HemisphericLight('light1', new BABYLON.Vector3(-0.1,1,0.3), scene);
+// create a basic light, aiming 0,1,0 - meaning, to the sky
+var light1 = new BABYLON.HemisphericLight('light1', new BABYLON.Vector3(-0.1,1,0.3), scene);
 var light2 = new BABYLON.SpotLight("spotLight", new BABYLON.Vector3(0, 45, 10), new BABYLON.Vector3(0.3, -0.71, 0), Math.PI / 3, 2, scene);
 
 
 
 
-                // create a built-in "sphere" shape; its constructor takes 6 params: name, segment, diameter, scene, updatable, sideOrientation 
- //               var sphere = BABYLON.Mesh.CreateSphere('sphere1', 16, 2, scene);
-
-
-
-
-
-    //Creation of a repeated textured material
-var myMaterial = new BABYLON.StandardMaterial("myMaterial1", scene);
-var myTexture  = new BABYLON.Texture("textures/texture.jpg", scene);
+ var myMaterial = new BABYLON.StandardMaterial("myMaterial1", scene);
+ var myTexture  = new BABYLON.Texture("textures/texture.jpg", scene);
   
  myMaterial.bumpTexture = new BABYLON.Texture("textures/6.jpg", scene);
  myMaterial.diffuseTexture  = new BABYLON.Texture("textures/texture.jpg", scene); 
@@ -118,7 +116,7 @@ scene.getMaterialByID("myMaterial1").diffuseTexture.uScale = 4.0;
 scene.getMaterialByID("myMaterial1").diffuseTexture.vScale = 4.0;
 
 
-  
+ 
 
 
 
@@ -129,21 +127,6 @@ scene.getMaterialByID("myMaterial1").diffuseTexture.vScale = 4.0;
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  
-//  myMaterial.backFaceCulling = false;
 
 var wall_1 = BABYLON.MeshBuilder.CreateBox("wall1", {height: 200, width: 2, depth: 200}, scene);
 var wall_2 = BABYLON.MeshBuilder.CreateBox("wall2", {height: 200, width: 2, depth: 200}, scene);
@@ -152,7 +135,7 @@ var wall_4 = BABYLON.MeshBuilder.CreateBox("wall4", {height: 200, width: 2, dept
 
 
 
-scene.getMeshByID('wall1').position.x = -12; 
+scene.getMeshByID('wall1').position.x = -8; 
 scene.getMeshByID('wall1').position.y = -3; 
 scene.getMeshByID('wall1').position.z = 0; 
  
@@ -179,43 +162,30 @@ wall_4.material = myMaterial;
 
 
 
+/////////////////1
+var umported1 =
+        BABYLON.SceneLoader.ImportMesh("sign1_matSign1_0", "./scenes/japanese_neon_sign_low_poly_background/", "scene.gltf", scene, function (importedMeshes) {
 
- 
-
-
-
-
-
-
-
-    var bench =
-        BABYLON.SceneLoader.ImportMesh("sign1_matSign1_0", "./scenes/japanese_neon_sign_low_poly_background/", "scene.gltf", scene, function (bench) {
-            bench[0].position = new BABYLON.Vector3(-2, -4, 20);
-            var bench1Scale = 1.;
-          //  bench[0].scaling = new BABYLON.Vector3(0.5, 1, 1);
+importedMeshes[0].position = new BABYLON.Vector3(-2, -4, 20);
+var bench1Scale = 1.;
+//  importedMeshes[0].scaling = new BABYLON.Vector3(0.5, 1, 1);
 			
-						   for(var i = 0; i < bench.length; i++){
-		//    
-				window.loadingStatusNeon=1;
-            console.log(bench[i].name+'');
-					window.loadingStatusNeon=1;
-        }
+for(var i = 0; i < importedMeshes.length; i++){console.log(importedMeshes[i].name+'');}
+window.loadingStatusNeon=1;
         });
 
-
-    var bench2 =
-        BABYLON.SceneLoader.ImportMesh("", "./scenes/island/", "scene.gltf", scene, function (bench) {
-            bench[0].position = new BABYLON.Vector3(4, -6, -20);
-            //window.templeScale = 0.010;
+/////////////////2
+    var umported2 =
+        BABYLON.SceneLoader.ImportMesh("", "./scenes/island/", "scene.gltf", scene, function (importedMeshes) {
+            importedMeshes[0].position = new BABYLON.Vector3(4, -6, -20);
 			bench1Scale=0.004;
-            bench[0].scaling = new BABYLON.Vector3(bench1Scale, bench1Scale, bench1Scale);
+            importedMeshes[0].scaling = new BABYLON.Vector3(bench1Scale, bench1Scale, bench1Scale);
 
 			
 var axis = new BABYLON.Vector3(1, 1, 1);
 var angle = Math.PI / 8;
 var quaternion = new BABYLON.Quaternion.RotationAxis(axis, angle);
 
-		
 
 		
 var axis = new BABYLON.Vector3(0, 1, 0);
@@ -223,40 +193,31 @@ var pi_angle=130;
 var angle = -Math.PI * (pi_angle/180);
 angle=4.25;
 var quaternion = new BABYLON.Quaternion.RotationAxis(axis, angle);
-bench[0].rotationQuaternion = quaternion;
-//	console.log(bench[0].name);
+importedMeshes[0].rotationQuaternion = quaternion;
+
 	
 	
-    var island2 = bench[0].clone('island2');
-
-island2.flipFaces(true);	
-scene.removeMesh(bench[0]);
-bench[0].dispose();
-
+var island2 = importedMeshes[0].clone('island2');
+//island2.flipFaces(true);	
+scene.removeMesh(importedMeshes[0]);
+importedMeshes[0].dispose();
 
 
-
-			
-        });
-
-
-/////////////////
+for(var i = 0; i < importedMeshes.length; i++){  console.log(importedMeshes[i].name+'');     }
+window.loadingStatusTemple=1;
+console.log('Temple done');
+});
 
 
-    var bench3 =
-        BABYLON.SceneLoader.ImportMesh("", "./scenes/palms/", "scene.gltf", scene, function (importedMeshes) {
+/////////////////3
+var umported3 =  BABYLON.SceneLoader.ImportMesh("", "./scenes/palms/", "scene.gltf", scene, function (importedMeshes) {
             importedMeshes[0].position = new BABYLON.Vector3(-3, -44, 50);
 			importedMeshes[0].rotation = new BABYLON.Vector3(0, 0, 0);
 			importedMeshes[0].scaling  = new BABYLON.Vector3(7, 7, 7);
-		for(var i = 0; i < importedMeshes.length; i++){console.log(importedMeshes[i].name+''); }
-	
-	window.loadingStatusPalms=1;
-	console.log('Palms done');
-	
-
-	
-	
-        });
+for(var i = 0; i < importedMeshes.length; i++){console.log(importedMeshes[i].name+''); }
+window.loadingStatusPalms=1;
+console.log('Palms done');
+ });
 
 ////
 
@@ -268,11 +229,9 @@ bench[0].dispose();
 // 
 
 
-
-
                 // return the created scene
 				
-                return scene;
+return scene;
 				
 				
 				
@@ -293,13 +252,12 @@ bench[0].dispose();
 
 
             // run the render loop
-            engine.runRenderLoop(function(){
-                scene.render();
-				window.timer++;
+engine.runRenderLoop(function(){
+scene.render();
+window.timer++;
 				
 				
-		//		scene.getMeshByID('sphere1').position.x = scene.getMeshByID('sphere1').position.x-0.01;  
-				
+			
 scene.getMeshByID('wall1').position.z = scene.getMeshByID('wall1').position.z-0.15;  
 scene.getMeshByID('wall2').position.z = scene.getMeshByID('wall2').position.z-0.15; 
 scene.getMeshByID('wall3').position.z = scene.getMeshByID('wall3').position.z-0.15;  
@@ -311,26 +269,14 @@ scene.getMeshByID('wall4').position.z = scene.getMeshByID('wall4').position.z-0.
  if (scene.getMeshByID('wall4').position.z <= -200) scene.getMeshByID('wall4').position.z =scene.getMeshByID('wall4').position.z +400;
 
 
-if (window.loadingStatusTemple==1)
-{
-//scene.getNodeByName('island2').position.z =scene.getNodeByName('island2').position.z-0.15;
-scene.getNodeByName('island2').rotation.z =scene.getNodeByName('island2').rotation.y-1.15;
-
-var axis = new BABYLON.Vector3(0, 1, 0);
-var quaternion = new BABYLON.Quaternion.RotationAxis(axis, (3.25+ window.timer * 0.01));
-scene.getNodeByName('island2').rotationQuaternion = quaternion;
-console.log('loaded temple true');
-
-}
-
 
 
 if (window.loadingStatusPalms==1)
 {
 scene.getMeshByID('palm01').position.y = scene.getMeshByID('palm01').position.y+(0.15/7); 
 scene.getMeshByID('palm02').position.y = scene.getMeshByID('palm02').position.y+(0.15/7); 
- if (scene.getMeshByID('palm01').position.y >= 10) scene.getMeshByID('palm01').position.y =scene.getMeshByID('palm01').position.y -20;
- if (scene.getMeshByID('palm02').position.y >= 10) scene.getMeshByID('palm02').position.y =scene.getMeshByID('palm02').position.y -20;
+if (scene.getMeshByID('palm01').position.y >= 10) scene.getMeshByID('palm01').position.y =scene.getMeshByID('palm01').position.y -20;
+if (scene.getMeshByID('palm02').position.y >= 10) scene.getMeshByID('palm02').position.y =scene.getMeshByID('palm02').position.y -20;
 
 
 
@@ -342,12 +288,22 @@ scene.getMeshByID('palm02').position.y = scene.getMeshByID('palm02').position.y+
 if (window.loadingStatusNeon==1)
 {
 scene.getMeshByID('sign1_matSign1_0').position.z = scene.getMeshByID('sign1_matSign1_0').position.z-0.15; 
+//console.log('loaded dd');
+}
+
+if (window.loadingStatusTemple==1)
+{
+var axis = new BABYLON.Vector3(0, 1, 0);
+var quaternion = new BABYLON.Quaternion.RotationAxis(axis, (3.25+ window.timer * 0.01));
+scene.getNodeByName('island2').rotationQuaternion = quaternion;
 }
 
 
- });
 
 
+
+
+});
 
 
 
