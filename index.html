@@ -29,7 +29,9 @@
 <!-- MAGICSTREAMS - START EMBEDDED IFRAME HTML5 PLAYER --> 
 <iframe width="1" height="1" src="https://radioplayer.link/iframe/index.php?autoplay=play&name=uj&logo=&bgcolor=212121&textcolor=FFFFFF&v=1&stream=http://ice4.somafm.com/spacestation-128-mp3" frameborder="0" scrolling="no" style="border-radius: 8px;" allow="autoplay;"></iframe> 
 <!-- MAGICSTREAMS - END EMBEDDED IFRAME HTML5 PLAYER -->
-
+<audio controls id="soundBG" autoplay>
+  <source src="http://ice4.somafm.com/spacestation-128-mp3" type="audio/mpeg" >
+</audio>
 
 
 
@@ -45,7 +47,7 @@
         window.addEventListener('DOMContentLoaded', function(){
 		
 
-//document.getElementById('soundBG').play();		
+document.getElementById('soundBG').play();		
 
             // get the canvas DOM element
             var canvas = document.getElementById('renderCanvas');
