@@ -16,6 +16,7 @@
             height  : 100%;
             margin  : 0;
             padding : 0;
+			background-color: #E6E6D9;
         }
 
         #renderCanvas {
@@ -74,6 +75,7 @@ document.getElementById('soundBG').play();
 //////////				
 //camera.inputs.add(new BABYLON.FreeCameraGamepadInput());
 //camera.inputs.attached.gamepad.gamepadAngularSensibility = 250;
+ //scene.debugLayer.show();
 
 
 //fog	
@@ -87,8 +89,9 @@ var parameters = {  edge_blur: 5.0,  chromatic_aberration: 2.0,  distortion: 0.3
 var lensEffect = new BABYLON.LensRenderingPipeline('lensEffects', parameters, scene, 1.0, camera);
 scene.postProcessRenderPipelineManager.attachCamerasToRenderPipeline('lensEffects', camera);
 
-scene.imageProcessingConfiguration.contrast = 2.5;
-scene.imageProcessingConfiguration.exposure = 0.7;
+//scene.imageProcessingConfiguration.contrast = 1.0;
+//scene.imageProcessingConfiguration.exposure = 1.0;
+
 	
 	
         // Set up new rendering pipeline
@@ -98,11 +101,12 @@ scene.imageProcessingConfiguration.exposure = 0.7;
         // Bloom
         pipeline.bloomEnabled = true;
         pipeline.bloomThreshold = 0.6;
-        pipeline.bloomWeight = 0.05;
-        pipeline.bloomKernel = 11;
-        pipeline.bloomScale = .25;	    
+        pipeline.bloomWeight = 0.2;
+        pipeline.bloomKernel = 50;
+        pipeline.bloomScale = .5;	    
 
-
+        pipeline.imageProcessingEnabled = false;
+		
 
 // create a basic light, aiming 0,1,0 - meaning, to the sky
 var light1 = new BABYLON.HemisphericLight('light1', new BABYLON.Vector3(-0.1,1,0.3), scene);
@@ -187,39 +191,39 @@ for(var i = 0; i < importedMeshes.length; i++){console.log(importedMeshes[i].nam
 window.loadingStatusNeon=1;
         });
 
-/////////////////2
-    var umported2 =
-        BABYLON.SceneLoader.ImportMesh("", "./scenes/island/", "scene.gltf", scene, function (importedMeshes) {
-            importedMeshes[0].position = new BABYLON.Vector3(4, -6, -20);
-			bench1Scale=0.004;
-            importedMeshes[0].scaling = new BABYLON.Vector3(bench1Scale, bench1Scale, bench1Scale);
+///////////////2
+    // var umported2 =
+        // BABYLON.SceneLoader.ImportMesh("", "./scenes/island/", "scene.gltf", scene, function (importedMeshes) {
+            // importedMeshes[0].position = new BABYLON.Vector3(4, -6, -20);
+			// bench1Scale=0.004;
+            // importedMeshes[0].scaling = new BABYLON.Vector3(bench1Scale, bench1Scale, bench1Scale);
 
 			
-var axis = new BABYLON.Vector3(1, 1, 1);
-var angle = Math.PI / 8;
-var quaternion = new BABYLON.Quaternion.RotationAxis(axis, angle);
+// var axis = new BABYLON.Vector3(1, 1, 1);
+// var angle = Math.PI / 8;
+// var quaternion = new BABYLON.Quaternion.RotationAxis(axis, angle);
 
 
 		
-var axis = new BABYLON.Vector3(0, 1, 0);
-var pi_angle=130;
-var angle = -Math.PI * (pi_angle/180);
-angle=4.25;
-var quaternion = new BABYLON.Quaternion.RotationAxis(axis, angle);
-importedMeshes[0].rotationQuaternion = quaternion;
+// var axis = new BABYLON.Vector3(0, 1, 0);
+// var pi_angle=130;
+// var angle = -Math.PI * (pi_angle/180);
+// angle=4.25;
+// var quaternion = new BABYLON.Quaternion.RotationAxis(axis, angle);
+// importedMeshes[0].rotationQuaternion = quaternion;
 
 	
 	
-var island2 = importedMeshes[0].clone('island2');
-//island2.flipFaces(true);	
-scene.removeMesh(importedMeshes[0]);
-importedMeshes[0].dispose();
+// var island2 = importedMeshes[0].clone('island2');
+//// //island2.flipFaces(true);	
+// scene.removeMesh(importedMeshes[0]);
+// importedMeshes[0].dispose();
 
 
-for(var i = 0; i < importedMeshes.length; i++){  console.log(importedMeshes[i].name+'');     }
-window.loadingStatusTemple=1;
-console.log('Temple done');
-});
+// for(var i = 0; i < importedMeshes.length; i++){  console.log(importedMeshes[i].name+'');     }
+// window.loadingStatusTemple=1;
+// console.log('Temple done');
+// });
 
 
 /////////////////3
