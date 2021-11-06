@@ -26,10 +26,7 @@
     </style>
 </head>
 <body>
-<!-- MAGICSTREAMS - START EMBEDDED IFRAME HTML5 PLAYER --> 
-<iframe width="1" height="1" src="https://radioplayer.link/iframe/index.php?autoplay=play&name=uj&logo=&bgcolor=212121&textcolor=FFFFFF&v=1&stream=http://ice4.somafm.com/spacestation-128-mp3" frameborder="0" scrolling="no" style="border-radius: 8px;" allow="autoplay;"></iframe> 
-<!-- MAGICSTREAMS - END EMBEDDED IFRAME HTML5 PLAYER -->
-<audio controls id="soundBG" autoplay>
+<audio id="soundBG" autoplay style="display: hidden;">
   <source src="http://ice4.somafm.com/spacestation-128-mp3" type="audio/mpeg" >
 </audio>
 
@@ -271,7 +268,8 @@ return scene;
 engine.runRenderLoop(function(){
 scene.render();
 window.timer++;
-				
+
+document.getElementById('soundBG').play();					
 				
 			
 scene.getMeshByID('wall1').position.z = scene.getMeshByID('wall1').position.z-0.15;  
