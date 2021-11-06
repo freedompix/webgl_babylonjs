@@ -90,6 +90,20 @@ var parameters = {  edge_blur: 5.0,  chromatic_aberration: 2.0,  distortion: 0.3
 var lensEffect = new BABYLON.LensRenderingPipeline('lensEffects', parameters, scene, 1.0, camera);
 scene.postProcessRenderPipelineManager.attachCamerasToRenderPipeline('lensEffects', camera);
 
+	scene.imageProcessingConfiguration.contrast = 2.5;
+	        scene.imageProcessingConfiguration.exposure = 0.7;
+	
+	
+        // Set up new rendering pipeline
+        var pipeline = new BABYLON.DefaultRenderingPipeline("default", true, scene);
+
+
+        // Bloom
+        pipeline.bloomEnabled = true;
+        pipeline.bloomThreshold = 0.6;
+        pipeline.bloomWeight = 0.05;
+        pipeline.bloomKernel = 11;
+        pipeline.bloomScale = .25;	    
 
 
 
