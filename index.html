@@ -42,7 +42,7 @@
 	console.log(window.loadingStatusTemple);
 	
 	
-        window.addEventListener('DOMContentLoaded', function(){
+window.addEventListener('DOMContentLoaded', function(){
 		
 
 document.getElementById('soundBG').play();		
@@ -72,11 +72,31 @@ document.getElementById('soundBG').play();
                 camera.attachControl(canvas, false);
 				
 				
-//////////				
-//camera.inputs.add(new BABYLON.FreeCameraGamepadInput());
-//camera.inputs.attached.gamepad.gamepadAngularSensibility = 250;
- //scene.debugLayer.show();
+//var camera2 = new BABYLON.WebVRFreeCamera("camera2", new BABYLON.Vector3(0, 0, 0), scene);			
+//camera2.setTarget(BABYLON.Vector3.Zero());
+//camera2.fov=1.5;				
+				
+				
+				
 
+
+// scene.debugLayer.show();
+
+     var vrHelper = scene.createDefaultVRExperience({createDeviceOrientationCamera:false});
+
+
+
+vrHelper.onAfterEnteringVRObservable.add(()=>{
+        if(scene.activeCamera === vrHelper.vrDeviceOrientationCamera){
+		
+            BABYLON.FreeCameraDeviceOrientationInput.WaitForOrientationChangeAsync(1000).then(()=>{
+                // Successfully received sensor input
+            }).catch(()=>{
+                alert("Device orientation camera is being used but no sensor is found, prompt user to enable in safari settings");
+            })
+        }
+    })
+ 
 
 //fog	
 scene.fogMode = BABYLON.Scene.FOGMODE_EXP;		
@@ -89,8 +109,16 @@ var parameters = {  edge_blur: 5.0,  chromatic_aberration: 2.0,  distortion: 0.3
 var lensEffect = new BABYLON.LensRenderingPipeline('lensEffects', parameters, scene, 1.0, camera);
 scene.postProcessRenderPipelineManager.attachCamerasToRenderPipeline('lensEffects', camera);
 
-//scene.imageProcessingConfiguration.contrast = 1.0;
-//scene.imageProcessingConfiguration.exposure = 1.0;
+//abberationVR
+var lensEffectVR = new BABYLON.LensRenderingPipeline('lensEffectsVR', parameters, scene, 1.0, vrHelper.vrDeviceOrientationCamera);
+scene.postProcessRenderPipelineManager.attachCamerasToRenderPipeline('lensEffectsVR', vrHelper.vrDeviceOrientationCamera);
+
+scene.imageProcessingConfiguration.contrast = 3.0;
+scene.imageProcessingConfiguration.exposure = 1.2;
+
+
+
+
 
 	
 	
@@ -122,7 +150,6 @@ var light2 = new BABYLON.SpotLight("spotLight", new BABYLON.Vector3(0, 45, 10), 
  myMaterial.diffuseTexture  = new BABYLON.Texture("textures/texture.jpg", scene); 
  myMaterial.emissiveTexture = new BABYLON.Texture("textures/texture.jpg", scene); 
  myMaterial.emissiveColor = new BABYLON.Color3.White();
- 
  
 
  
@@ -179,71 +206,11 @@ wall_4.material = myMaterial;
 
 
 
-/////////////////1
-var umported1 =
-        BABYLON.SceneLoader.ImportMesh("sign1_matSign1_0", "./scenes/japanese_neon_sign_low_poly_background/", "scene.gltf", scene, function (importedMeshes) {
-
-importedMeshes[0].position = new BABYLON.Vector3(-2, -4, 20);
-var bench1Scale = 1.;
-//  importedMeshes[0].scaling = new BABYLON.Vector3(0.5, 1, 1);
-			
-for(var i = 0; i < importedMeshes.length; i++){console.log(importedMeshes[i].name+'');}
-window.loadingStatusNeon=1;
-        });
-
-///////////////2
-    // var umported2 =
-        // BABYLON.SceneLoader.ImportMesh("", "./scenes/island/", "scene.gltf", scene, function (importedMeshes) {
-            // importedMeshes[0].position = new BABYLON.Vector3(4, -6, -20);
-			// bench1Scale=0.004;
-            // importedMeshes[0].scaling = new BABYLON.Vector3(bench1Scale, bench1Scale, bench1Scale);
-
-			
-// var axis = new BABYLON.Vector3(1, 1, 1);
-// var angle = Math.PI / 8;
-// var quaternion = new BABYLON.Quaternion.RotationAxis(axis, angle);
-
-
-		
-// var axis = new BABYLON.Vector3(0, 1, 0);
-// var pi_angle=130;
-// var angle = -Math.PI * (pi_angle/180);
-// angle=4.25;
-// var quaternion = new BABYLON.Quaternion.RotationAxis(axis, angle);
-// importedMeshes[0].rotationQuaternion = quaternion;
-
-	
-	
-// var island2 = importedMeshes[0].clone('island2');
-//// //island2.flipFaces(true);	
-// scene.removeMesh(importedMeshes[0]);
-// importedMeshes[0].dispose();
-
-
-// for(var i = 0; i < importedMeshes.length; i++){  console.log(importedMeshes[i].name+'');     }
-// window.loadingStatusTemple=1;
-// console.log('Temple done');
-// });
-
-
-/////////////////3
-var umported3 =  BABYLON.SceneLoader.ImportMesh("", "./scenes/palms/", "scene.gltf", scene, function (importedMeshes) {
-            importedMeshes[0].position = new BABYLON.Vector3(-3, -44, 50);
-			importedMeshes[0].rotation = new BABYLON.Vector3(0, 0, 0);
-			importedMeshes[0].scaling  = new BABYLON.Vector3(7, 7, 7);
-for(var i = 0; i < importedMeshes.length; i++){console.log(importedMeshes[i].name+''); }
-window.loadingStatusPalms=1;
-console.log('Palms done');
- });
-
-////
 
 
 
 
 
-
-// 
 
 
                 // return the created scene
@@ -281,40 +248,18 @@ scene.getMeshByID('wall2').position.z = scene.getMeshByID('wall2').position.z-0.
 scene.getMeshByID('wall3').position.z = scene.getMeshByID('wall3').position.z-0.15;  
 scene.getMeshByID('wall4').position.z = scene.getMeshByID('wall4').position.z-0.15; 
 
- if (scene.getMeshByID('wall1').position.z <= -200) scene.getMeshByID('wall1').position.z =scene.getMeshByID('wall1').position.z +400;
- if (scene.getMeshByID('wall2').position.z <= -200) scene.getMeshByID('wall2').position.z =scene.getMeshByID('wall2').position.z +400;
- if (scene.getMeshByID('wall3').position.z <= -200) scene.getMeshByID('wall3').position.z =scene.getMeshByID('wall3').position.z +400;
- if (scene.getMeshByID('wall4').position.z <= -200) scene.getMeshByID('wall4').position.z =scene.getMeshByID('wall4').position.z +400;
+if (scene.getMeshByID('wall1').position.z <= -200) scene.getMeshByID('wall1').position.z =scene.getMeshByID('wall1').position.z +400;
+if (scene.getMeshByID('wall2').position.z <= -200) scene.getMeshByID('wall2').position.z =scene.getMeshByID('wall2').position.z +400;
+if (scene.getMeshByID('wall3').position.z <= -200) scene.getMeshByID('wall3').position.z =scene.getMeshByID('wall3').position.z +400;
+if (scene.getMeshByID('wall4').position.z <= -200) scene.getMeshByID('wall4').position.z =scene.getMeshByID('wall4').position.z +400;
 
 
 
 
-if (window.loadingStatusPalms==1)
-{
-scene.getMeshByID('palm01').position.y = scene.getMeshByID('palm01').position.y+(0.15/7); 
-scene.getMeshByID('palm02').position.y = scene.getMeshByID('palm02').position.y+(0.15/7); 
-if (scene.getMeshByID('palm01').position.y >= 10) scene.getMeshByID('palm01').position.y =scene.getMeshByID('palm01').position.y -20;
-if (scene.getMeshByID('palm02').position.y >= 10) scene.getMeshByID('palm02').position.y =scene.getMeshByID('palm02').position.y -20;
 
 
 
-//console.log('loaded palms');
 
-}
-
-
-if (window.loadingStatusNeon==1)
-{
-scene.getMeshByID('sign1_matSign1_0').position.z = scene.getMeshByID('sign1_matSign1_0').position.z-0.15; 
-//console.log('loaded dd');
-}
-
-if (window.loadingStatusTemple==1)
-{
-var axis = new BABYLON.Vector3(0, 1, 0);
-var quaternion = new BABYLON.Quaternion.RotationAxis(axis, (3.25+ window.timer * 0.01));
-scene.getNodeByName('island2').rotationQuaternion = quaternion;
-}
 
 
 
