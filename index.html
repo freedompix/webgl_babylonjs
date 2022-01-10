@@ -80,7 +80,7 @@ document.getElementById('soundBG').play();
 				
 
 
-// scene.debugLayer.show();
+ scene.debugLayer.show();
 
      var vrHelper = scene.createDefaultVRExperience({createDeviceOrientationCamera:false});
 
@@ -106,12 +106,12 @@ scene.clearColor = new BABYLON.Color3(0.9, 0.9, 0.85);
 
 //abberation
 var parameters = {  edge_blur: 5.0,  chromatic_aberration: 2.0,  distortion: 0.3,};
-var lensEffect = new BABYLON.LensRenderingPipeline('lensEffects', parameters, scene, 1.0, camera);
-scene.postProcessRenderPipelineManager.attachCamerasToRenderPipeline('lensEffects', camera);
+var lensEffect = new BABYLON.LensRenderingPipeline('lensEffects', parameters, scene, 1.0, scene.cameras);
+scene.postProcessRenderPipelineManager.attachCamerasToRenderPipeline('lensEffects', scene.cameras);
 
 //abberationVR
-var lensEffectVR = new BABYLON.LensRenderingPipeline('lensEffectsVR', parameters, scene, 1.0, vrHelper.vrDeviceOrientationCamera);
-scene.postProcessRenderPipelineManager.attachCamerasToRenderPipeline('lensEffectsVR', vrHelper.vrDeviceOrientationCamera);
+//var lensEffectVR = new BABYLON.LensRenderingPipeline('lensEffectsVR', parameters, scene, 1.0, vrHelper.vrDeviceOrientationCamera);
+//scene.postProcessRenderPipelineManager.attachCamerasToRenderPipeline('lensEffects', vrHelper.vrDeviceOrientationCamera);
 
 scene.imageProcessingConfiguration.contrast = 3.0;
 scene.imageProcessingConfiguration.exposure = 1.2;
@@ -123,7 +123,7 @@ scene.imageProcessingConfiguration.exposure = 1.2;
 	
 	
         // Set up new rendering pipeline
-        var pipeline = new BABYLON.DefaultRenderingPipeline("default", true, scene);
+        var pipeline = new BABYLON.DefaultRenderingPipeline("default", true, scene, scene.cameras);
 
 
         // Bloom
@@ -133,7 +133,7 @@ scene.imageProcessingConfiguration.exposure = 1.2;
         pipeline.bloomKernel = 50;
         pipeline.bloomScale = .5;	    
 
-        pipeline.imageProcessingEnabled = false;
+      pipeline.imageProcessingEnabled = false;
 		
 
 // create a basic light, aiming 0,1,0 - meaning, to the sky
@@ -278,5 +278,6 @@ if (scene.getMeshByID('wall4').position.z <= -200) scene.getMeshByID('wall4').po
             });
         });
     </script>
+<a href="#" style="position: absolute;top: 0;" onСlick="scene.enterVR(); alert (1);return false;">rfgf</a>
 </body>
 </html>
